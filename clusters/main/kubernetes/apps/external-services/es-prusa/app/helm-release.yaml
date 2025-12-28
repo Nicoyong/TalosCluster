@@ -49,6 +49,7 @@ spec:
           traefik.ingress.kubernetes.io/service.serversscheme: http
           traefik.ingress.kubernetes.io/proxy-read-timeout: "3600"
           traefik.ingress.kubernetes.io/proxy-send-timeout: "3600"
+          traefik.ingress.kubernetes.io/proxy-next-upstream: "off"
 
         integrations:
           certManager:
