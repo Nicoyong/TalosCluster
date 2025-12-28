@@ -1,0 +1,61 @@
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: es-prusa
+  namespace: external-services
+spec:
+  interval: 15m
+  chart:
+    spec:
+      chart: external-service
+      version: 16.14.4
+      sourceRef:
+        kind: HelmRepository
+        name: truecharts
+        namespace: flux-system
+      interval: 15m
+  timeout: 20m
+  maxHistory: 3
+  install:
+    remediation:
+      retries: 3
+  upgrade:
+    cleanupOnFail: true
+    remediation:
+      retries: 3
+  uninstall:
+    keepHistory: false
+  values:
+    service:
+      main:
+        enabled: true
+        externalIP: "${PRUSA_IP}"
+        useSlice: false
+        ports:
+          main:
+            enabled: true
+            port: ${PRUSA_PORT}
+            protocol: http
+        type: ExternalIP
+
+    ingress:
+      main:
+        enabled: true
+        ingressClassName: external
+
+        annotations:
+          traefik.ingress.kubernetes.io/router.entrypoints: websecure
+          traefik.ingress.kubernetes.io/router.tls: "true"
+          traefik.ingress.kubernetes.io/service.serversscheme: http
+          traefik.ingress.kubernetes.io/proxy-read-timeout: "3600"
+          traefik.ingress.kubernetes.io/proxy-send-timeout: "3600"
+
+        integrations:
+          certManager:
+            enabled: true
+            certificateIssuer: domain-0-le-prod
+        hosts:
+          - host: prusa.${DOMAIN_0}
+            paths:
+              - path: /
+                pathType: Prefix
