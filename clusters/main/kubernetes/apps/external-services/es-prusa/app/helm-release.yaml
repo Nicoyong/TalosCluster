@@ -43,14 +43,6 @@ spec:
         enabled: true
         ingressClassName: external
 
-        annotations:
-          traefik.ingress.kubernetes.io/router.entrypoints: websecure
-          traefik.ingress.kubernetes.io/router.tls: "true"
-          traefik.ingress.kubernetes.io/service.serversscheme: http
-          traefik.ingress.kubernetes.io/proxy-read-timeout: "3600"
-          traefik.ingress.kubernetes.io/proxy-send-timeout: "3600"
-          traefik.ingress.kubernetes.io/proxy-next-upstream: "off"
-
         integrations:
           certManager:
             enabled: true
