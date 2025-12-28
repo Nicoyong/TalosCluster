@@ -1,7 +1,18 @@
 {
   "$schema": "https://docs.renovatebot.com/renovate-schema.json",
+
+  "schedule": ["before 06:00 AM"],
+  "timezone": "Europe/Paris",
+
   "extends": [
     "config:recommended",
-    "github>trueforge-org/truecharts//.github/renovate/main.json5"
-  ]
+    "github>truecharts/public//.github/renovate/main.json5"
+  ],
+
+  "dependencyDashboard": true,
+  "labels": ["renovate"],
+
+  "rebaseWhen": "conflicted",
+  "prHourlyLimit": 5,
+  "prConcurrentLimit": 10
 }
