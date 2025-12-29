@@ -1,0 +1,62 @@
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: rustdesk
+  namespace: rustdesk
+spec:
+  interval: 15m
+  chart:
+    spec:
+      chart: rustdesk
+      version: 2.13.5
+      sourceRef:
+        kind: HelmRepository
+        name: truecharts
+        namespace: flux-system
+      interval: 15m
+  install:
+    createNamespace: true
+    crds: CreateReplace
+    remediation:
+      retries: 3
+  upgrade:
+    crds: CreateReplace
+    remediation:
+      retries: 3
+  values:
+    global:
+      stopAll: false
+    credentials:
+      minio:
+        type: s3
+        url: "${S3_URL}"
+        bucket: "taloscluster"
+        accessKey: "${S3_ACCESKEY}"
+        secretKey: "${S3_SECRETKEY}"
+        encrKey: "${S3_ENCRKEY}"
+    workload:
+      main:
+        podSpec:
+          containers:
+            main:
+              env:
+                RELAY: "rustdesk.${DOMAIN_0}:21117"
+    persistence:
+      data:
+        volsync:
+        - name: data
+          type: restic
+          credentials: minio
+          dest:
+            enabled: true
+          src:
+            enabled: true
+
+    service:
+      main:
+        loadBalancerIP: ${RUSTDESK_IP}
+        type: LoadBalancer
+        externalTrafficPolicy: Local
+        integrations:
+          metallb:
+            enabled: true
