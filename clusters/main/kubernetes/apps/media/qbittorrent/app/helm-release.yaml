@@ -42,10 +42,10 @@ spec:
         encrKey: "${S3_ENCRKEY}" 
         
     service:
-#      main:
-#        enabled: true
-#        type: LoadBalancer
-#        loadBalancerIP: ${QBITTORRENT_IP}
+      main:
+        enabled: true
+        type: LoadBalancer
+        loadBalancerIP: ${QBITTORRENT_IP}
   
       torrent:
         enabled: true
@@ -61,16 +61,16 @@ spec:
             port: ${QBITTORRENT_UDP_PORT}
             protocol: udp
 
-    ingress:
-      main:
-        enabled: true
-        ingressClassName: internal
-        hosts:
-          - host: qbittorrent.${DOMAIN_1}
-        integrations:
-          certManager:
-            enabled: true
-            certificateIssuer: cloudflare   
+#    ingress:
+#      main:
+#        enabled: true
+#        ingressClassName: internal
+#        hosts:
+#          - host: qbittorrent.${DOMAIN_1}
+#        integrations:
+#          certManager:
+#            enabled: true
+#            certificateIssuer: cloudflare   
     
     persistence:
       config:
