@@ -84,15 +84,4 @@ spec:
         type: nfs
         server: ${TRUENAS_IP}
         path: ${JELLYFIN_NFS_PATH}
-        mountPath: /data/multimedia
-    
-    workload:
-      main:
-        podSpec:
-          containers:
-            main:
-              env:
-#                JELLYFIN_DATA_DIR: /config
-                JELLYFIN_CONFIG_DIR: /config/config
-#                JELLYFIN_CACHE_DIR: /cache
-#                JELLYFIN_LOG_DIR: /logs    
+        mountPath: /multimedia
