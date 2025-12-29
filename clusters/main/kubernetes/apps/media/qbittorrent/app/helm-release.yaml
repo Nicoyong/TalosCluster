@@ -1,0 +1,91 @@
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: qbittorrent
+  namespace: media
+spec:
+  interval: 15m
+  chart:
+    spec:
+      chart: qbittorrent
+      version: 24.2.7
+      sourceRef:
+        kind: HelmRepository
+        name: truecharts
+        namespace: flux-system
+      interval: 15m  
+  timeout: 20m
+  maxHistory: 3 
+  driftDetection:
+    mode: warn   
+  install:
+    createNamespace: true
+
+  upgrade:
+    cleanupOnFail: true
+    remediation:
+      retries: 3
+  uninstall:
+    keepHistory: false
+  
+  values:
+
+    TZ: Europe/Paris
+
+    credentials:
+      minio:
+        type: s3
+        url: "${S3_URL}"
+        bucket: "taloscluster"
+        accessKey: "${S3_ACCESKEY}"
+        secretKey: "${S3_SECRETKEY}"
+        encrKey: "${S3_ENCRKEY}" 
+        
+    service:
+#      main:
+#        enabled: true
+#        type: LoadBalancer
+#        loadBalancerIP: ${QBITTORRENT_IP}
+  
+      torrent:
+        enabled: true
+        type: LoadBalancer
+        loadBalancerIP: ${QBITTORRENT_IP}
+        ports:
+          torrent:
+            enabled: true
+            port: ${QBITTORRENT_TCP_PORT}
+            protocol: tcp
+          torrentudp:
+            enabled: true
+            port: ${QBITTORRENT_UDP_PORT}
+            protocol: udp
+
+    ingress:
+      main:
+        enabled: true
+        ingressClassName: internal
+        hosts:
+          - host: qbittorrent.${DOMAIN_1}
+        integrations:
+          certManager:
+            enabled: true
+            certificateIssuer: cloudflare   
+    
+    persistence:
+      config:
+        enabled: true
+        volsync:
+          - name: config
+            type: restic
+            credentials: minio
+            dest:               #VolSync Destination (Restore)
+              enabled: true
+            src:                #VolSync Source (Backup)
+              enabled: true
+      downloads:
+        enabled: true
+        type: nfs
+        server: ${TRUENAS_IP}
+        path: ${QBITTORRENT_PATH}
+        mountPath: /downloads
