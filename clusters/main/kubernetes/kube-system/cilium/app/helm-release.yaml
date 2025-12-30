@@ -75,7 +75,13 @@ spec:
     kubeProxyReplacement: true
     kubeProxyReplacementHealthzBindAddr: 0.0.0.0:10256
     localRedirectPolicy: true
+    dns:
+      enabled: true
+    bpf:
+      hostLegacyRouting: true
+    policyEnforcementMode: default
     operator:
       replicas: 1
-      rollOutPods: true
+      rollOutPods: true  
     rollOutCiliumPods: true
+
