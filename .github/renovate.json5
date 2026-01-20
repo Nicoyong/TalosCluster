@@ -1,18 +1,56 @@
 {
+  // Indique à Renovate quel schéma JSON utiliser
+  // Cela permet la validation du fichier et l’autocomplétion dans les éditeurs
   "$schema": "https://docs.renovatebot.com/renovate-schema.json",
 
-  "schedule": ["before 06:00 AM"],
+  // Fuseau horaire utilisé pour le schedule
+  // Important sinon Renovate utilise UTC par défaut
   "timezone": "Europe/Paris",
 
+  // Définit quand Renovate a le droit de créer des PR
+  // Ici : uniquement avant 06h00 du matin
+  "schedule": ["before 06:00 AM"],
+
+  // Liste de configurations héritées
   "extends": [
+    // Configuration officielle recommandée par Renovate
+    // (bonnes pratiques par défaut)
     "config:recommended",
-    "github>truecharts/public//.github/renovate/main.json5"
+
+    // Configuration personnalisée du projet TrueCharts
+    // Elle ajoute des règles spécifiques à Kubernetes / Helm / TrueCharts
+    "github>truecharts/public//.github/renovate/main.json5",
+
+    // Règles spécifiques Talos :
+    "github>Nicoyong/TalosCluster//.github/renovate/special_talos.json5",
+
+    // Règles spécifique stockage Kubernetes
+    "github>Nicoyong/TalosCluster//.github/renovate/special_longhorn.json5",
+
+    // MAJOR updates : PR créées directement, pas d’automerge
+  "github>Nicoyong/TalosCluster//.github/renovate/major_dashboardapproval_disable.json5",
+
+  // Désactive le pinning digest pour Helm et Flux
+  // → les charts et manifests suivent les tags, pas les digest SHA
+  //"github>Nicoyong/TalosCluster//.github/renovate/special_stopdigistpinning.json5"
   ],
 
+  // Active le "Renovate Dashboard"
+  // → Une issue GitHub qui liste toutes les dépendances
+  //   et leur statut (à jour, en attente, bloquées, rate-limited, etc.)  
   "dependencyDashboard": true,
-  "labels": ["renovate"],
 
+  // Label ajouté automatiquement aux PR créées par Renovate
+  "labels": ["renovate"],
+  
+  // Indique quand Renovate doit rebase une PR existante
+  // Ici : seulement si la PR est en conflit avec la branche principale
   "rebaseWhen": "conflicted",
+  
+  // Limite le nombre de PR créées par heure
+  // Utile pour éviter les rate limits GitHub
   "prHourlyLimit": 5,
+
+   // Nombre maximum de PR Renovate ouvertes en même temps
   "prConcurrentLimit": 10
 }

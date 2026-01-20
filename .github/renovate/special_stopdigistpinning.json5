@@ -1,0 +1,21 @@
+{
+  // Schéma officiel Renovate
+  // Sert uniquement à valider la structure du fichier
+  "$schema": "https://docs.renovatebot.com/renovate-schema.json",
+
+  // Paramètres spécifiques à Helm v3
+  "helmv3": {
+    // PinDigests = false
+    // Par défaut, Renovate "pince" (fixe) les images Helm via digest SHA
+    // Ici, on désactive ce comportement :
+    // → les charts restent sur des tags (ex: 1.6.3)
+    "pinDigests": false
+  },
+
+  // Paramètres spécifiques à Flux (GitOps)
+  "flux": {
+    // Même logique que pour Helm
+    // Flux ne va pas pinner les images via digest SHA
+    "pinDigests": false
+  }
+}

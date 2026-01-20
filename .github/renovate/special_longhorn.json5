@@ -1,0 +1,38 @@
+// Règles de sécurité Longhorn
+// Longhorn = stockage Kubernetes
+// - Empêche l’automerge des mises à jour MINOR 
+// - Protège le stockage contre des upgrades risqués
+
+{
+  // Schéma officiel Renovate
+  // Sert uniquement à valider la structure du fichier
+  "$schema": "https://docs.renovatebot.com/renovate-schema.json",
+  
+  // Règles spécifiques appliquées à Longhorn
+  "packageRules": [
+    //Règle — MINOR (x.Y.z)
+    {
+      // Description lisible dans le Renovate Dashboard  
+      "description": ["Bloque l’automerge pour les mises à jour MINOR de Longhorn"],
+      
+      // Cette règle s’applique aux mises à jour MINOR
+      // ex : 1.5.0 → 1.6.0
+      "matchUpdateTypes": ["minor"],
+
+      // Interdit l’automerge
+      // Les mises à jour Longhorn doivent être validées manuellement
+      "automerge": false,
+
+      // Package concerné : chart Longhorn
+      // Utilisé par TrueCharts / home-operations
+      "matchPackageNames": ["ghcr.io/home-operations/charts-mirror/longhorn"],
+      
+      // Labels ajoutés à la PR
+      // Permet d’identifier rapidement une mise à jour Longhorn
+      "labels": ["type/minor", "longhorn-update"],
+
+      // Empêche l’ajout automatique d’autres labels
+      "addLabels": null
+    }
+  ]
+}

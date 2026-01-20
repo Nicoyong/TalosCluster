@@ -1,0 +1,88 @@
+// Règles de sécurité Talos pour Renovate
+// Ce fichier empêche toute mise à niveau automatique des composants Talos critiques
+// (kubelet et programme d'installation) afin d'éviter toute perturbation du cluster.
+// Toutes les mises à jour doivent être vérifiées et appliquées manuellement.
+{
+  // Schéma officiel Renovate
+  // Sert uniquement à valider la structure du fichier
+  "$schema": "https://docs.renovatebot.com/renovate-schema.json",
+
+  // Règles spécifiques appliquées à certaines dépendances
+  "packageRules": [
+    
+    // Règle 1 — PATCH (x.y.Z)
+    {
+      // Description lisible (affichée dans Renovate Dashboard)
+      "description": ["Bloque l’automerge pour Kubelet et Talos (version Patch)"],
+      
+      // Cette règle s’applique aux mises à jour PATCH
+      // ex : 1.6.3 → 1.6.4
+      "matchUpdateTypes": ["patch"],
+
+      // Interdit l’automerge
+      // Même un patch DOIT être validé manuellement
+      "automerge": false,
+
+      // Paquets concernés
+      // → kubelet Talos
+      // → installer Talos
+      "matchPackageNames": [
+        "ghcr.io/siderolabs/kubelet",
+        "ghcr.io/siderolabs/installer"
+      ],
+      
+      // Labels ajoutés au PR
+      // Permet d’identifier rapidement le type de mise à jour
+      "labels": ["type/patch", "system-upgrade"],
+      
+      // Empêche d’ajouter d’autres labels automatiques
+      "addLabels": null
+    },
+
+    //Règle 2 — MINOR (x.Y.z)
+    {
+      "description": ["Bloque l’automerge pour Kubelet et Talos (version Mineure)"],
+      
+      // Mise à jour MINOR
+      // ex : 1.6.0 → 1.7.0
+      "matchUpdateTypes": ["minor"],
+
+      // Toujours pas d’automerge
+      "automerge": false,
+
+      // Toujours les mêmes composants critiques Talos
+      "matchPackageNames": [
+        "ghcr.io/siderolabs/kubelet", 
+        "ghcr.io/siderolabs/installer"
+      ],
+
+      // Labels spécifiques
+      "labels": ["type/minor", "system-upgrade"],
+      "addLabels": null
+    },
+
+    //Règle 3 — MAJOR (X.y.z)
+    {
+      "description": ["Bloque l’automerge pour Kubelet et Talos (version Majeure)"],
+      
+      // Mise à jour MAJOR
+      // ex : 1.x → 2.x
+      "matchUpdateTypes": ["major"],
+
+      // IMPORTANT :
+      // Pas besoin d’approbation via le Renovate Dashboard
+      // La PR est créée directement
+      "dependencyDashboardApproval": false,
+
+      // Composants Talos critiques
+      "matchPackageNames": [
+        "ghcr.io/siderolabs/kubelet", 
+        "ghcr.io/siderolabs/installer"
+      ],
+
+      // Labels très explicites
+      "labels": ["type/major", "system-upgrade"],
+      "addLabels": null
+    }
+  ]
+}
