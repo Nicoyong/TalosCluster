@@ -28,7 +28,7 @@
     "github>Nicoyong/TalosCluster//.github/renovate/special_longhorn.json5",
 
     // MAJOR updates : PR créées directement, pas d’automerge
-  "github>Nicoyong/TalosCluster//.github/renovate/major_dashboardapproval_disable.json5",
+    "github>Nicoyong/TalosCluster//.github/renovate/major_dashboardapproval_disable.json5"
 
   // Désactive le pinning digest pour Helm et Flux
   // → les charts et manifests suivent les tags, pas les digest SHA
