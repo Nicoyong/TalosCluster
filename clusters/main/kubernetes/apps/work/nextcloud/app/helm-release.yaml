@@ -90,6 +90,9 @@ spec:
               enabled: true
 
     nextcloud:
+      apps:
+        - groupfolders
+
       collabora:
         enabled: true
         password: "${NEXTCLOUD_PASSWORD}"
