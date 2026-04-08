@@ -9,7 +9,7 @@ spec:
   chart:
     spec:
       chart: jellyfin
-      version: 23.0.5
+      version: 23.0.2
       sourceRef:
         kind: HelmRepository
         name: truecharts
@@ -32,7 +32,15 @@ spec:
   values:
 
     TZ: Europe/Paris
-        
+
+    resources:
+      requests:
+        cpu: 100m
+        memory: 500Mi
+      limits:
+        cpu: 4000m
+        memory: 8Gi 
+
     credentials:
       minio:
         type: s3
