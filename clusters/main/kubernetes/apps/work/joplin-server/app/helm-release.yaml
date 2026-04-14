@@ -70,6 +70,7 @@ spec:
             main:
               env:
                 APP_BASE_URL: https://joplin.${DOMAIN_0}
+                SIGNUP_ENABLED: "1"
 
     # 🧠 DATABASE = ALIGNÉ NEXTCLOUD  
     
