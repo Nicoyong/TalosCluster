@@ -73,17 +73,16 @@ spec:
 
     # 🧠 DATABASE = ALIGNÉ NEXTCLOUD
     cnpg:
-  main:
-    cluster:
-      singleNode: true
-
-    backups:
-      enabled: true
-      credentials: minio
-
-    #recovery:
-    #  method: object_store
-    #  credentials: minio
+      main:
+        cluster:
+          singleNode: true
+        mode: standalone #standalone recovery
+        backups:
+          enabled: true
+          credentials: minio
+        recovery:
+          method: object_store
+          credentials: minio
 
     # 💾 STORAGE + BACKUP (ALIGNÉ NEXTCLOUD)
     persistence:
