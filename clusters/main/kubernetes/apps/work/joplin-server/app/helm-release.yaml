@@ -1,0 +1,99 @@
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: joplin-server
+  namespace: joplin-server
+
+spec:
+  interval: 15m
+
+  chart:
+    spec:
+      chart: joplin-server
+      version: 21.19.2
+      sourceRef:
+        kind: HelmRepository
+        name: truecharts
+        namespace: flux-system
+
+  maxHistory: 10
+
+  driftDetection:
+    mode: warn
+
+  install:
+    createNamespace: true
+    remediation:
+      retries: 3
+
+  upgrade:
+    remediation:
+      retries: 3
+
+  timeout: 20m
+
+  values:
+
+    global:
+      stopAll: false
+
+    # 🔑 S3 UNIQUE (comme Nextcloud)
+    credentials:
+      minio:
+        type: s3
+        url: "${S3_URL}"
+        bucket: "taloscluster"
+        accessKey: "${S3_ACCESKEY}"
+        secretKey: "${S3_SECRETKEY}"
+        encrKey: "${S3_ENCRKEY}"
+
+    # 🌐 INGRESS IDENTIQUE
+    ingress:
+      main:
+        enabled: true
+        ingressClassName: external
+        integrations:
+          certManager:
+            enabled: true
+            certificateIssuer: domain-0-le-prod
+        hosts:
+          - host: joplin.${DOMAIN_0}
+            paths:
+              - path: /
+                pathType: Prefix
+
+    # 🔴 OBLIGATOIRE JOPLIN
+    workload:
+      main:
+        podSpec:
+          containers:
+            main:
+              env:
+                APP_BASE_URL: https://joplin.${DOMAIN_0}
+
+    # 🧠 DATABASE = ALIGNÉ NEXTCLOUD
+    cnpg:
+      main:
+        cluster:
+          singleNode: true   # même logique que ton Nextcloud
+        mode: recovery       # cohérent avec ton Nextcloud
+
+        backups:
+          enabled: true
+          credentials: minio
+
+        recovery:
+          method: object_store
+          credentials: minio
+
+    # 💾 STORAGE + BACKUP (ALIGNÉ NEXTCLOUD)
+    persistence:
+      config:
+        volsync:
+          - name: config
+            type: restic
+            credentials: minio
+            dest:
+              enabled: true
+            src:
+              enabled: true
