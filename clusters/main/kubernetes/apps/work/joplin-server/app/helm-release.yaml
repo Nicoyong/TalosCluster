@@ -76,8 +76,11 @@ spec:
       main:
         cluster:
           singleNode: true   # même logique que ton Nextcloud
-        mode: recovery       # cohérent avec ton Nextcloud
+        mode: standalone        # standalone recovery
 
+    backups:
+      enabled: true
+      credentials: minio
         backups:
           enabled: true
           credentials: minio
