@@ -78,7 +78,7 @@ spec:
       main:
         cluster:
           singleNode: true
-        mode: standalone #standalone recovery
+        mode: recovery #standalone recovery
     
         backups:
           enabled: true
