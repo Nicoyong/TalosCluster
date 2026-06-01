@@ -1,0 +1,21 @@
+{
+  // Schéma officiel Renovate
+  // Sert uniquement à valider la structure du fichier
+  "$schema": "https://docs.renovatebot.com/renovate-schema.json",
+  
+  // Règles générales pour les mises à jour MAJOR
+  "major": 
+    {
+      // Active la gestion des MAJOR updates
+      "enabled": true,
+
+      // Interdit l’automerge automatique
+      // Toutes les mises à jour MAJOR doivent être revues manuellement
+      "automerge": false,
+
+      // Désactive l’approbation manuelle via le Dashboard
+      // Normalement, Renovate demande de cliquer "Approve" dans l'issue Dashboard
+      // Ici, cette étape est sautée → la PR MAJOR est créée directement
+      "dependencyDashboardApproval": false
+    }
+}
