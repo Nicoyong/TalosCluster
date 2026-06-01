@@ -5,7 +5,7 @@ metadata:
   namespace: flux-system
 spec:
   interval: 10m
-  path: clusters/main/kubernetes/apps/external-services/es-ai/app
+  path: clusters/main/kubernetes/apps/networking/external-services/es-ai/app
   prune: true
   sourceRef:
     kind: GitRepository
