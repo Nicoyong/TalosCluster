@@ -5,4 +5,5 @@ resources:
   - es-homeassistant/ks.yaml
   - es-prusa/ks.yaml  
   - es-ai/ks.yaml
-  - es-ollama/ks.yaml
+  - es-ollama/ks.yaml 
+  - es-carottage/ks.yaml
