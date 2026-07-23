@@ -6,10 +6,10 @@ metadata:
   name: tuppr
   namespace: flux-system
 spec:
-  interval: 2h
+  interval: 12h
   layerSelector:
     mediaType: application/vnd.cncf.helm.chart.content.v1.tar+gzip
     operation: copy
   url: oci://ghcr.io/home-operations/charts/tuppr
   ref:
-    tag: 0.4.0
+    tag: 0.3.3

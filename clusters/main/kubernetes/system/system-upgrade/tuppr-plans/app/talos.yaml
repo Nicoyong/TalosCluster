@@ -1,0 +1,13 @@
+apiVersion: tuppr.home-operations.com/v1alpha1
+kind: TalosUpgrade
+metadata:
+  name: talos
+  namespace: system-upgrade
+spec:
+  talos:
+    version: ${TALOS_VERSION}  # Obligatoire : version cible de Talos
+  policy:
+    debug: true          # Journalisation detaillee (facultative)
+    force: false         # Facultatif : ignorer les controles d'integrite d'etcd
+    rebootMode: powercycle  # Facultatif, par defaut|redemarrage
+    placement: soft      # Facultatif, dur|souple

@@ -10,5 +10,6 @@ resources:
   - openebs/ks.yaml
   - snapshot-controller/ks.yaml
   #- spegel/ks.yaml # Disable spegel (single node cluster)
-  - system-upgrade-controller/ks.yaml
+  #- system-upgrade-controller/ks.yaml
+  - system-upgrade
   - volsync/ks.yaml
