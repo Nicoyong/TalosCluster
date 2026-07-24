@@ -5,17 +5,37 @@ on:
 
 jobs:
   test:
+    name: Vérification GitHub Actions
     runs-on: ubuntu-latest
 
     steps:
-      - name: Bonjour
-        run: |
-          echo "================================"
-          echo "GitHub Actions fonctionne !"
-          echo "================================"
+      # 1 - Télécharge ton dépôt GitHub dans la machine virtuelle
+      - name: 📥 Checkout du dépôt
+        uses: actions/checkout@v4
 
-      - name: Version Python
+      # 2 - Affiche la version de Python installée
+      - name: 🐍 Version de Python
         run: python3 --version
 
-      - name: Afficher les fichiers
+      # 3 - Vérifie que l'on est bien dans ton dépôt
+      - name: 📂 Répertoire courant
+        run: pwd
+
+      # 4 - Liste tous les fichiers du dépôt
+      - name: 📋 Liste des fichiers
         run: ls -la
+
+      # 5 - Vérifie que ton fichier Talos existe
+      - name: 🔍 Vérifier talconfig.yaml
+        run: |
+          if [ -f clusters/main/talos/talconfig.yaml ]; then
+            echo "✅ talconfig.yaml trouvé"
+          else
+            echo "❌ talconfig.yaml introuvable"
+            exit 1
+          fi
+
+      # 6 - Affiche le contenu du fichier Talos
+      - name: 📄 Afficher talconfig.yaml
+        run: |
+          cat clusters/main/talos/talconfig.yaml
