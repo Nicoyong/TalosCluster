@@ -1,14 +1,23 @@
+## 📊 Status Cluster (Auto-généré)
+
+[![Talos Version](https://img.shields.io/badge/Talos-v1.12.2-blue?...)]()
+[![Kubernetes Version](https://img.shields.io/badge/Kubernetes-v1.35.0-326ce5?...)]()
+[![Status](https://img.shields.io/badge/Status-Active-green?...)]()
+[![Last Updated](https://img.shields.io/badge/Updated-2026--07--24-lightgrey?...)]()
+
+
 # TalosCluster
 
 Cluster Kubernetes basé sur [Talos Linux](https://www.talos.dev/) avec GitOps (Flux CD).
 
 **Basé sur:** [TrueCharts](https://truecharts.org/)
 
+
 ## Qu'est-ce que c'est?
 
 Un cluster Kubernetes self-hosted avec:
-- **OS:** Talos Linux v1.12.2 (immuable et sécurisé)
-- **K8s:** Kubernetes v1.35.0
+- **OS:** Talos Linux (immuable et sécurisé)
+- **K8s:** Kubernetes 
 - **Networking:** Cilium + MetalLB
 - **Stockage:** Longhorn + OpenEBS
 - **GitOps:** Flux CD + Kustomize
