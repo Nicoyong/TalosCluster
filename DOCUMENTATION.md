@@ -7,6 +7,11 @@
 3. [Configuration Talos](#configuration-talos)
 4. [Infrastructure Système](#infrastructure-système)
 5. [Applications Déployées](#applications-déployées)
+   - [Dashboard Kubernetes](#-dashboard-kubernetes-dashboard)
+   - [Services Externes](#-services-externes-networkingexternal-services)
+   - [Média](#-média-media)
+   - [Travail](#-travail-work)
+   - [Networking](#-networking-networking)
 6. [Networking](#networking)
 7. [Stockage](#stockage)
 8. [Sécurité](#sécurité)
@@ -97,14 +102,21 @@ TalosCluster-main/
 ┌────────────▼────────────────────────────────────────┐
 │        Application Layer (Kustomize + Helm)         │
 │                                                      │
-│  Système:                Applications:              │
-│  ├─ Blocky (DNS)       ├─ Jellyfin (Media)         │
-│  ├─ Prometheus         ├─ qBittorrent              │
-│  ├─ Grafana            ├─ Nextcloud (Storage)      │
-│  ├─ CloudNative PG     ├─ Joplin-Server (Notes)    │
-│  ├─ Longhorn           └─ Services externes        │
-│  ├─ OpenEBS            (RustDesk, Home Assist.)    │
-│  └─ Dashboard          (Ollama AI, Prusa, etc.)    │
+│  Dashboard:            Système:                     │
+│  ├─ Kubernetes         ├─ Blocky (DNS)            │
+│  │  Dashboard          ├─ Prometheus              │
+│  │                     ├─ Grafana                 │
+│  Applications:         ├─ CloudNative PG          │
+│  ├─ Jellyfin (Media)   ├─ Longhorn                │
+│  ├─ qBittorrent        ├─ OpenEBS                 │
+│  ├─ Nextcloud          └─ Spegel, VolSync, etc.   │
+│  ├─ Joplin-Server      │                          │
+│  ├─ RustDesk           Services Externes:         │
+│  │                     ├─ AI (Intelligence)       │
+│  External Services:    ├─ Ollama (LLM)            │
+│  ├─ Home Assistant     ├─ Home Assistant (IoT)    │
+│  ├─ Carottage          ├─ Carottage (Métier)     │
+│  └─ Prusa 3D           └─ Prusa 3D (Impression)   │
 └────────────┬────────────────────────────────────────┘
              │
 ┌────────────▼────────────────────────────────────────┐
@@ -269,6 +281,62 @@ nodes:
 
 ### Organisation par catégorie
 
+#### 📊 Dashboard (`kubernetes-dashboard/`)
+
+**Kubernetes Dashboard**
+- **Fonction**: Interface web de gestion du cluster Kubernetes
+- **Type**: Application de monitoring/gestion
+- **Service**: LoadBalancer avec IP fixe `DASHBOARD_IP`
+- **Port**: 80 (HTTP via NGINX)
+- **Accès**: https://dashboard.example.com
+- **Features**: 
+  - Vue d'ensemble du cluster
+  - Gestion des ressources (pods, services, etc.)
+  - Logs et métriques en temps réel
+  - Support RBAC
+- **Version**: 4.6.3 (TrueCharts)
+
+#### 🌐 Services Externes (`networking/external-services/`)
+
+Les services externes permettent à Kubernetes de se connecter à des services hébergés en dehors du cluster et de les exposer via Ingress.
+
+**es-ai (Intelligence Artificielle)**
+- **Fonction**: Service AI/LLM externe
+- **Type**: ExternalIP Service
+- **Adresse**: `${AI_IP}:${AI_PORT}`
+- **Ingress**: `ai.${DOMAIN_0}` (avec certificat Let's Encrypt)
+- **Intégration**: Cert-Manager avec Cloudflare DNS01
+- **Cas d'usage**: Ollama, vLLM, ou autre service IA
+
+**es-ollama (Ollama LLM)**
+- **Fonction**: Serveur Ollama pour inférence de modèles LLM
+- **Type**: ExternalIP Service
+- **Adresse**: `${OLLAMA_IP}:${OLLAMA_PORT}`
+- **Ingress**: `ollama.${DOMAIN_0}`
+- **Modèles**: Configurés directement sur la machine hôte
+
+**es-homeassistant (Home Automation)**
+- **Fonction**: Intégration Home Assistant
+- **Type**: ExternalIP Service
+- **Adresse**: `${HOMEASSISTANT_IP}:${HOMEASSISTANT_PORT}`
+- **Ingress**: `homeassistant.${DOMAIN_0}`
+- **Features**: Domotique et automations
+
+**es-carottage (Système de carottage)**
+- **Fonction**: Service métier spécifique
+- **Type**: ExternalIP Service
+- **Adresse**: `${CAROTTAGE_IP}:${CAROTTAGE_PORT}`
+- **Ingress**: `carottage.${DOMAIN_0}`
+
+**es-prusa (Imprimante 3D)**
+- **Fonction**: Interface de gestion imprimante 3D Prusa
+- **Type**: ExternalIP Service
+- **Adresse**: `${PRUSA_IP}:${PRUSA_PORT}`
+- **Ingress**: `prusa.${DOMAIN_0}`
+- **Intégration**: Monitoring et queue d'impression
+
+---
+
 #### 📺 Média (`media/`)
 
 **Jellyfin**
@@ -306,17 +374,17 @@ nodes:
 - Ingress Controller standard Kubernetes
 
 **RustDesk**
-- **Fonction**: Accès à distance
+- **Fonction**: Plateforme d'accès à distance sécurisé
+- **Type**: Application de networking
 - **IP**: `RUSTDESK_IP`
-- **Features**: Chiffrement end-to-end
-
-**Services Externes**
-- Intégration de services externes via ExternalService pattern:
-  - `es-homeassistant`: Domotique (`HOMEASSISTANT_IP:HOMEASSISTANT_PORT`)
-  - `es-ollama`: AI/LLMs (`OLLAMA_IP:OLLAMA_PORT`)
-  - `es-ai`: Service IA (`AI_IP:AI_PORT`)
-  - `es-prusa`: Imprimante 3D (`PRUSA_IP:PRUSA_PORT`)
-  - `es-carottage`: Service spécifique (`MESANGES_IP:MESANGES_PORT`)
+- **Port**: Standard 5900 (VNC-like)
+- **Namespace**: networking
+- **Ingress**: `rustdesk.${DOMAIN_0}` (optionnel)
+- **Features**: 
+  - Chiffrement end-to-end
+  - Accès sans pare-feu complexe
+  - Support multi-plateforme (Windows, Linux, macOS)
+- **Cas d'usage**: Maintenance distante du cluster et systèmes associés
 
 #### 🔧 Core (`core/`)
 
@@ -799,7 +867,78 @@ Affichées dans `system-upgrade-controller-plans`:
 - Auto-merge pour les patch versions
 - Manuel pour les major versions
 
-### 5. Monitoring et Observabilité
+### 5. Accès aux applications principales
+
+#### Accéder au Kubernetes Dashboard
+
+```bash
+# Le dashboard est accessible via LoadBalancer
+# URL: http://<DASHBOARD_IP>
+# Via ingress: https://dashboard.example.com
+
+# Vérifier le statut du deployment
+kubectl get deployment -n kubernetes-dashboard
+
+# Logs du dashboard
+kubectl logs -n kubernetes-dashboard -l app=kubernetes-dashboard
+```
+
+#### Gérer les Services Externes
+
+Les services externes connectent Kubernetes à des services externes (hébergés ailleurs).
+
+```bash
+# Lister tous les services externes
+kubectl get svc -n external-services
+
+# Vérifier la configuration d'un service
+kubectl get externalservice es-ai -n external-services -o yaml
+
+# Afficher les ingress exposés
+kubectl get ingress -n external-services
+```
+
+**Configuration des Services Externes dans clusterenv.yaml:**
+```yaml
+# Variables à configurer
+AI_IP: 192.168.x.x
+AI_PORT: 5000
+
+OLLAMA_IP: 192.168.x.x
+OLLAMA_PORT: 11434
+
+HOMEASSISTANT_IP: 192.168.x.x
+HOMEASSISTANT_PORT: 8123
+
+CAROTTAGE_IP: 192.168.x.x
+CAROTTAGE_PORT: 8080
+
+PRUSA_IP: 192.168.x.x
+PRUSA_PORT: 80
+
+DASHBOARD_IP: 10.x.x.x  # IP LoadBalancer interne
+DOMAIN_0: example.com
+```
+
+#### Dépannage des Services Externes
+
+```bash
+# Vérifier la connectivité vers un service externe
+kubectl exec -it <pod-name> -n external-services -- ping <SERVICE_IP>
+
+# Logs d'un service externe
+kubectl logs -n external-services -l app=es-ai
+
+# Vérifier le certificat Let's Encrypt
+kubectl get certificate -n external-services
+kubectl describe certificate -n external-services
+
+# Forcer le renouvellement du certificat
+kubectl annotate certificate -n external-services \
+  es-ai-example-com cert-manager.io/issue-temporary-certificate="true"
+```
+
+### 5b. Monitoring et Observabilité
 
 #### Accéder à Grafana
 ```bash
@@ -919,6 +1058,8 @@ kubectl delete certificate -n ingress-nginx cert-name
 | CloudNative PG | Latest | cnpg-system | Longhorn | Oui |
 | Blocky | Latest | dns | ConfigMap | Non |
 | NGINX Ingress | Latest | ingress-nginx | Non | Oui |
+| **K8s Dashboard** | **4.6.3** | **kubernetes-dashboard** | **Non** | **Non** |
+| **External Services** | **Latest** | **external-services** | **Non** | **Non** |
 
 ### Ressources réseau
 
@@ -982,6 +1123,44 @@ kubectl delete certificate -n ingress-nginx cert-name
 
 ---
 
+---
+
+## 📝 Historique des modifications
+
+### Récentes modifications (Juillet 2026)
+
+#### ✅ Applications ajoutées/documentées
+- **Kubernetes Dashboard** v4.6.3
+  - Interface web de gestion du cluster
+  - Accessible via LoadBalancer sur IP statique
+  - Gestion centralisée des ressources K8s
+
+- **Services Externes** (5 services)
+  - **es-ai**: Service IA/LLM générique
+  - **es-ollama**: Serveur Ollama pour inférence LLM
+  - **es-homeassistant**: Plateforme domotique
+  - **es-carottage**: Service métier dédié
+  - **es-prusa**: Interface imprimante 3D
+  - Tous exposés via Ingress avec certificats Let's Encrypt
+
+#### 📦 Applications complètement déployées
+| Catégorie | Applications | Status |
+|-----------|--------------|--------|
+| Dashboard | Kubernetes Dashboard | ✅ Documentée |
+| Système | Cilium, MetalLB, Cert-Manager, Prometheus, Grafana, Longhorn, OpenEBS | ✅ Documentée |
+| Média | Jellyfin, qBittorrent | ✅ Documentée |
+| Travail | Nextcloud, Joplin-Server | ✅ Documentée |
+| Networking | RustDesk, Services Externes (5x) | ✅ Documentée |
+| Infrastructure | Flux CD, SOPS, System Upgrade, Monitoring | ✅ Documentée |
+
+#### 🔄 Considérations pour les futures updates
+- Évaluer besoin d'additional LLM services
+- Potentiel scale des services externes
+- Monitoring dédié pour services externes
+- Stratégie backup pour configurations externes
+
+---
+
 **Document généré**: Juillet 2026
 **Version cluster**: Talos v1.12.2, K8s v1.35.0
-**Dernière mise à jour**: À adapter selon l'état courant
+**Dernière mise à jour**: Juillet 2026 - Ajout Dashboard et Services Externes

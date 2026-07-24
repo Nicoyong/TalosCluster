@@ -12,8 +12,13 @@ Un cluster Kubernetes self-hosted avec:
 - **Networking:** Cilium + MetalLB
 - **Stockage:** Longhorn + OpenEBS
 - **GitOps:** Flux CD + Kustomize
-- **Monitoring:** Prometheus + Grafana
-- **Applications:** Jellyfin, Nextcloud, qBittorrent, RustDesk, Blocky DNS, etc.
+- **Monitoring:** Prometheus + Grafana + Kubernetes Dashboard
+- **Applications:** 
+  - Média: Jellyfin, qBittorrent
+  - Travail: Nextcloud, Joplin-Server
+  - Networking: RustDesk
+  - Services Externes: AI, Ollama, Home Assistant, Carottage, Prusa 3D
+  - Infrastructure: Blocky DNS, Cert-Manager, System Upgrade
 
 ## Documentation
 
