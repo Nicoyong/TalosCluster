@@ -5,7 +5,7 @@ metadata:
   namespace: flux-system
 spec:
   interval: 10m
-  path: clusters/main/kubernetes/app/observability/kromgo/app
+  path: clusters/main/kubernetes/apps/observability/kromgo/app
   prune: true
   sourceRef:
     kind: GitRepository
