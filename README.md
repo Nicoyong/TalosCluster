@@ -1,9 +1,8 @@
 ## 📊 Status Cluster (Auto-généré)
 
-[![Talos Version](https://img.shields.io/badge/Talos-v1.12.2-blue?...)]()
-[![Kubernetes Version](https://img.shields.io/badge/Kubernetes-v1.35.0-326ce5?...)]()
-[![Status](https://img.shields.io/badge/Status-Active-green?...)]()
-[![Last Updated](https://img.shields.io/badge/Updated-2026--07--24-lightgrey?...)]()
+[![Talos](https://img.shields.io/endpoint?url=https://kromgo.yong.ovh//badges/talos_version?format=shields&style=for-the-badge&logo=talos&logoColor=white&label=%20&color=blue)](https://www.talos.dev/)&nbsp;&nbsp;
+[![Kubernetes](https://img.shields.io/endpoint?url=https://kromgo.yong.ovh//badges/kubernetes_version?format=shields&style=for-the-badge&logo=kubernetes&logoColor=white&label=%20&color=blue)](https://www.kubernetes.io/)&nbsp;&nbsp;
+[![Flux](https://img.shields.io/endpoint?url=https://kromgo.yong.ovh//badges/flux_version?format=shields&style=for-the-badge&logo=flux&logoColor=white&color=blue&label=%20)](https://fluxcd.io)&nbsp;&nbsp;
 
 
 # TalosCluster
