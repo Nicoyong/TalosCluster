@@ -1,5 +1,7 @@
+<div align="center">
+  
 ## 📊 Status Cluster (Auto-généré)
-
+  
 [![Talos](https://img.shields.io/endpoint?url=https://kromgo.yong.ovh//badges/talos_version?format=shields&style=for-the-badge&logo=talos&logoColor=white&label=%20&color=blue)](https://www.talos.dev/)&nbsp;&nbsp;
 [![Kubernetes](https://img.shields.io/endpoint?url=https://kromgo.yong.ovh//badges/kubernetes_version?format=shields&style=for-the-badge&logo=kubernetes&logoColor=white&label=%20&color=blue)](https://www.kubernetes.io/)&nbsp;&nbsp;
 [![Flux](https://img.shields.io/endpoint?url=https://kromgo.yong.ovh//badges/flux_version?format=shields&style=for-the-badge&logo=flux&logoColor=white&color=blue&label=%20)](https://fluxcd.io)&nbsp;&nbsp;
@@ -11,6 +13,7 @@
 [![CPU-Usage](https://img.shields.io/endpoint?url=https://kromgo.yong.ovh/badges/cluster_cpu_usage?format=shields&style=flat-square&label=CPU)](https://github.com/home-operations/kromgo)&nbsp;&nbsp;
 [![Memory-Usage](https://img.shields.io/endpoint?url=https://kromgo.yong.ovh/badges/cluster_memory_usage?format=shields&style=flat-square&label=Memory)](https://github.com/home-operations/kromgo)&nbsp;&nbsp;
 
+</div>
 
 # TalosCluster
 
