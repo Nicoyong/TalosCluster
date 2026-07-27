@@ -85,7 +85,7 @@ spec:
           query: label_replace(kube_pod_container_info{namespace="flux-system",pod=~"source-controller.*"}, "version", "$1", "image", ".+:(v[0-9.]+)")
           title: Flux
           icon: si:flux
-          valueExpr: labels["version"]
+          valueExpr: labels.version
           colorExpr: '"blue"'
         #- id: flux_version
         #  query: label_replace(flux_instance_info, "revision", "$1", "revision", "v(.+)@sha256:.+")
