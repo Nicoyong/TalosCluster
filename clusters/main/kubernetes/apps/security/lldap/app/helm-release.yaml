@@ -76,9 +76,10 @@ spec:
         monitoring:
           enablePodMonitor: true
         backups:
-          enabled: true
+          enabled: false #true
           credentials: minio
         recovery:
+          enabled: false #true
           method: object_store
           credentials: minio
 
@@ -90,6 +91,6 @@ spec:
             type: restic
             credentials: minio
             dest:
-              enabled: true
+              enabled: false #true
             src:
-              enabled: true
+              enabled: false #true
