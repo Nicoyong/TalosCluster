@@ -73,6 +73,7 @@ spec:
         enabled: true
       main:
         enabled: true
+        database: lldap
         mode: standalone #recovery
         cluster:
           singleNode: true
