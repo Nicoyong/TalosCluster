@@ -35,12 +35,12 @@ spec:
       stopAll: false #permet de mettre en pause tous les workloads sans les supprimer (TrueCharts feature)
     credentials:
       minio:
-          type: s3
-          url: "${S3_URL}"
-          bucket: "${S3_BUCKET}"
-          accessKey: "${S3_ACCESS_KEY}"
-          secretKey: "${S3_SECRET_KEY}"
-          encrKey: "${S3_ENCRYPTION_KEY}"
+        type: s3
+        url: "${S3_URL}"
+        bucket: "taloscluster"
+        accessKey: "${S3_ACCESKEY}"
+        secretKey: "${S3_SECRETKEY}"
+        encrKey: "${S3_ENCRKEY}"
     ingress:
       main:
         enabled: true
