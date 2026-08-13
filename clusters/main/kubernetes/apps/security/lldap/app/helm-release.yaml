@@ -79,18 +79,16 @@ spec:
           enabled: true
           credentials: minio
         recovery:
-          enabled: false #true
+          enabled: false
           method: object_store
           credentials: minio
 
-    persistence:
-      data:
-        enabled: true
+      persistence:
+        data:
+          enabled: true
         volsync:
           - name: data
             type: restic
             credentials: minio
-            dest:
-              enabled: true
             src:
               enabled: true
