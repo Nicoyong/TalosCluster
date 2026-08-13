@@ -69,7 +69,10 @@ spec:
                 LLDAP_VERBOSE: false
                 LLDAP_key_file: /data/private_key
     cnpg:
+      persistence:
+        enabled: true
       main:
+        enabled: true
         mode: standalone #recovery
         cluster:
           singleNode: true
@@ -83,9 +86,9 @@ spec:
           method: object_store
           credentials: minio
 
-      persistence:
-        data:
-          enabled: true
+    persistence:
+      data:
+        enabled: true
         volsync:
           - name: data
             type: restic
