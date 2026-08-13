@@ -1,0 +1,120 @@
+---
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: authelia
+  namespace: authelia
+spec:
+  interval: 15m
+  chart:
+    spec:
+      chart: authelia
+      version: 32.14.3
+      sourceRef:
+        kind: HelmRepository
+        name: truecharts
+        namespace: flux-system
+      interval: 15m
+  timeout: 5m
+  maxHistory: 3
+  install:
+    createNamespace: true
+    remediation:
+      retries: 3
+  upgrade:
+    cleanupOnFail: true
+    remediation:
+      retries: 3
+  uninstall:
+    keepHistory: false
+  dependsOn:
+    - name: lldap
+      namespace: lldap
+  values:
+    global:
+      stopAll: false #permet de mettre en pause tous les workloads sans les supprimer (TrueCharts feature)
+    credentials:
+      minio:
+          type: s3
+          url: "${S3_URL}"
+          bucket: "${S3_BUCKET}"
+          accessKey: "${S3_ACCESS_KEY}"
+          secretKey: "${S3_SECRET_KEY}"
+          encrKey: "${S3_ENCRYPTION_KEY}"
+    ingress:
+      main:
+        enabled: true
+        ingressClassName: external
+        integrations:
+          certManager:
+            enabled: true
+            certificateIssuer: domain-0-le-prod
+        hosts:
+          - host: auth.${DOMAIN_0}
+    cnpg:
+      main:
+        mode: standalone  #recovery 
+        cluster:
+          singleNode: true
+        monitoring:
+         enablePodMonitor: true
+        backups:
+          enabled: false  #true
+        recovery:
+          enabled: false  #true
+
+    persistence:
+     config:
+        enabled: true
+        volsync:
+          - name: config
+            type: restic
+            credentials: minio
+            dest:
+             enabled: false  #true
+            src:
+              enabled: false  #true 
+
+
+
+
+    workload:
+      main:
+        replicas: 1
+    authelia:
+      session:
+        cookies:
+          - domain: ${DOMAIN_0}
+            authelia_url: https://auth.${DOMAIN_0}
+      authentication_backend:
+        ldap:
+          implementation: lldap
+          address: ldap://lldap-ldap.lldap.svc.cluster.local:3890
+          base_dn: dc=${DN},dc=${DC}
+          user: uid=manager,ou=people,dc=${DN},dc=${DC}
+          password: ${AUTHELIA_LDAP_PASSWORD}
+      notifier:
+        smtp:
+          address: submission://${SMTP_HOST}:587
+          username: ${SMTP_USER}
+          password: ${SMTP_PASSWORD}
+          sender: no-reply@${DOMAIN_0}
+          tls:
+            server_name: ${SMTP_HOST}
+      access_control:
+        default_policy: 'deny'
+        rules:
+          # Réseau LOCAL - bypass MAIS juste pour admin
+          - domain:
+              - "*.${DOMAIN_1}"
+              - ${DOMAIN_1}
+            ip:
+              - ${PLAGE_IP}
+            policy: bypass
+            subject: "group:admin"        
+           # Réseau EXTERNE - authentification requise
+          - domain:
+              - "*.${DOMAIN_0}"
+              - ${DOMAIN_0}
+            policy: one_factor
+            subject: "group:admin"
