@@ -98,7 +98,7 @@ spec:
           password: ${AUTHELIA_LDAP_PASSWORD}
       notifier:
         smtp:
-          address: submission://${SMTP_HOST}:587
+          address: submission://${SMTP_HOST}:${SMTP_PORT}
           username: ${SMTP_USER}
           password: ${SMTP_PASSWORD}
           sender: no-reply@${DOMAIN_0}
