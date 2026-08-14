@@ -111,10 +111,9 @@ spec:
           - domain:
               - "*.${DOMAIN_1}"
               - ${DOMAIN_1}
-            ip:
+            networks:
               - ${PLAGE_IP}
-            policy: bypass
-            subject: "group:admin"        
+            policy: bypass        
            # Réseau EXTERNE - authentification requise
           - domain:
               - "*.${DOMAIN_0}"
