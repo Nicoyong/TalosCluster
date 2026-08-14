@@ -78,9 +78,6 @@ spec:
             dest:
               enabled: true
 
-
-
-
     workload:
       main:
         replicas: 1
@@ -104,13 +101,21 @@ spec:
           sender: no-reply@${DOMAIN_0}
           tls:
             server_name: ${SMTP_HOST}
+      totp:
+        disable: false
+        issuer: ${DOMAIN_0}
+        algorithm: sha1
+        digits: 6
+        period: 60
+        skew: 1
+        secret_size: 32
       access_control:
         default_policy: 'deny'
         rules:
           # Réseau LOCAL - bypass MAIS juste pour admin
           - domain:
-              - "*.${DOMAIN_1}"
-              - ${DOMAIN_1}
+              - "*.${DOMAIN_0}"
+              - ${DOMAIN_0}
             networks:
               - ${PLAGE_IP}
             policy: bypass        
@@ -118,5 +123,5 @@ spec:
           - domain:
               - "*.${DOMAIN_0}"
               - ${DOMAIN_0}
-            policy: one_factor
+            policy: two_factor
             subject: "group:admin"
