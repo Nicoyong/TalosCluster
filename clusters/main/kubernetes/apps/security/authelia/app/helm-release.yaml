@@ -32,7 +32,7 @@ spec:
       namespace: lldap
   values:
     global:
-      stopAll: true #false #permet de mettre en pause tous les workloads sans les supprimer (TrueCharts feature)
+      stopAll: false #permet de mettre en pause tous les workloads sans les supprimer (TrueCharts feature)
     credentials:
       minio:
         type: s3
@@ -53,27 +53,30 @@ spec:
           - host: auth.${DOMAIN_0}
     cnpg:
       main:
-        mode: standalone  #recovery 
         cluster:
           singleNode: true
-        monitoring:
-         enablePodMonitor: true
+        mode: standalone
         backups:
-          enabled: false  #true
+          enabled: true
+          credentials: minio
+          retentionPolicy: "14d"
+          revision: "3"
         recovery:
-          enabled: false  #true
+          enabled: false
+        monitoring:
+          enablePodMonitor: true
 
     persistence:
-     config:
+      config:
         enabled: true
         volsync:
           - name: config
             type: restic
             credentials: minio
-            dest:
-             enabled: false  #true
             src:
-              enabled: false  #true 
+              enabled: true
+            dest:
+              enabled: true
 
 
 
