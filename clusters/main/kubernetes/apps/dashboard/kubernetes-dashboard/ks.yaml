@@ -5,7 +5,7 @@ metadata:
   namespace: flux-system
 spec:
   interval: 10m
-  path: clusters/main/kubernetes/apps/kubernetes-dashboard/app
+  path: clusters/main/kubernetes/apps/dashboard/kubernetes-dashboard/app
   prune: true
   sourceRef:
     kind: GitRepository
