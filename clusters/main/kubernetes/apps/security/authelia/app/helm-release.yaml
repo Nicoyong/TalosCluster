@@ -32,7 +32,7 @@ spec:
       namespace: lldap
   values:
     global:
-      stopAll: false #permet de mettre en pause tous les workloads sans les supprimer (TrueCharts feature)
+      stopAll: true #false #permet de mettre en pause tous les workloads sans les supprimer (TrueCharts feature)
     credentials:
       minio:
         type: s3
