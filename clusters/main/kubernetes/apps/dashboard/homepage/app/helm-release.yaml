@@ -4,10 +4,8 @@ kind: HelmRelease
 metadata:
   name: homepage
   namespace: homepage
-
 spec:
   interval: 15m
-
   chart:
     spec:
       chart: homepage
@@ -17,23 +15,50 @@ spec:
         name: truecharts
         namespace: flux-system
       interval: 15m
-
   timeout: 20m
-
   maxHistory: 3
-
   driftDetection:
     mode: warn
-
   install:
     createNamespace: true
     remediation:
       retries: 3
-
   upgrade:
     cleanupOnFail: true
     remediation:
       retries: 3
-
   uninstall:
     keepHistory: false
+  values:
+    TZ: Europe/Paris  
+
+    credentials:
+      minio:
+        type: s3
+        url: "${S3_URL}"
+        bucket: "${S3_BUCKET}"
+        accessKey: "${S3_ACCESKEY}"
+        secretKey: "${S3_SECRETKEY}"
+        encrKey: "${S3_ENCRKEY}"
+      
+    ingress:
+      main:
+        enabled: true
+        ingressClassName: external
+        integrations:
+          certManager:
+            enabled: true
+            certificateIssuer: domain-0-le-prod
+        hosts:
+          - host: homepage.${DOMAIN_0}
+
+    persistence:
+      config:
+        volsync:
+          - name: config
+            type: restic
+            credentials: minio
+            dest: #VolSync Destination (Restore)
+              enabled: true
+            src: #VolSync Source (Backup)
+              enabled: true      
