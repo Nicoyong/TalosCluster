@@ -90,3 +90,5 @@ spec:
             credentials: minio
             src:
               enabled: true
+            dest:
+              enabled: false
