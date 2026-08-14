@@ -72,10 +72,12 @@ spec:
       main:
         cluster:
           singleNode: true
-        mode: standalone
+        mode: standalone #recovery pour restore
         backups:
           enabled: true
           credentials: minio
+          retentionPolicy: "14d"
+          revision: "3"
         recovery:
           enabled: false
         monitoring:
@@ -91,4 +93,4 @@ spec:
             src:
               enabled: true
             dest:
-              enabled: false
+              enabled: true
