@@ -44,13 +44,23 @@ spec:
     ingress:
       main:
         enabled: true
-        ingressClassName: internal
-        hosts:
-          - host: homepage.${DOMAIN_0}
+        ingressClassName: external
+
         integrations:
+          nginx:
+            enabled: true
+            auth:
+              type: "authelia"
+              internalHost: "authelia.authelia.svc.cluster.local:9091"
+              externalHost: "auth.${DOMAIN_0}"
+
           certManager:
             enabled: true
             certificateIssuer: domain-0-le-prod
+
+    hosts:
+      - host: homepage.${DOMAIN_0}
+
 
     persistence:
       config:
@@ -75,6 +85,7 @@ spec:
             certManager:
               enabled: true
               certificateIssuer:  domain-0-le-prod   
+              
 
     workload:
       main:
