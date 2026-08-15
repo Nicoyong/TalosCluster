@@ -46,6 +46,9 @@ spec:
         enabled: true
         ingressClassName: external
 
+        hosts:
+          - host: homepage.${DOMAIN_0}
+
         integrations:
           nginx:
             enabled: true
@@ -57,9 +60,6 @@ spec:
           certManager:
             enabled: true
             certificateIssuer: domain-0-le-prod
-
-    hosts:
-      - host: homepage.${DOMAIN_0}
 
 
     persistence:
