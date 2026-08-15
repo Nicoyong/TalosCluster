@@ -45,12 +45,12 @@ spec:
       main:
         enabled: true
         ingressClassName: internal
+        hosts:
+          - host: homepage.${DOMAIN_0}
         integrations:
           certManager:
             enabled: true
             certificateIssuer: domain-0-le-prod
-        hosts:
-          - host: homepage.${DOMAIN_0}
 
     persistence:
       config:
@@ -61,4 +61,30 @@ spec:
             dest: #VolSync Destination (Restore)
               enabled: true
             src: #VolSync Source (Backup)
-              enabled: true      
+              enabled: true   
+
+      addons:
+      codeserver:
+        enabled: true
+        ingress:
+          enabled: true
+          ingressClassName: internal
+          hosts:
+            - host: cs-homepage.${DOMAIN_0}
+          integrations:
+            certManager:
+              enabled: true
+              certificateIssuer:  domain-0-le-prod   
+
+    workload:
+      main:
+        podSpec:
+          automountServiceAccountToken: true
+          containers:
+            main:
+              env:
+                HOMEPAGE_ALLOWED_HOSTS: "homepage.${DOMAIN_0}"
+    
+    resources:
+      requests:
+        cpu: 10m
