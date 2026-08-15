@@ -38,16 +38,18 @@ spec:
         accessKey: "${S3_ACCESKEY}"
         secretKey: "${S3_SECRETKEY}"
         encrKey: "${S3_ENCRKEY}"
+
     ingress:
-        main:
-          enabled: true
-          ingressClassName: internal
-        #  integrations:
-        #    certManager:
-        #      enabled: true
-        #      certificateIssuer: domain-0-le-prod
-          hosts:
-            - host: lldap.${DOMAIN_1}
+      main:
+        enabled: true
+        ingressClassName: internal
+        hosts:
+          - host: lldap.${DOMAIN_0}
+        integrations:
+          certManager:
+            enabled: true
+            certificateIssuer: domain-0-le-prod
+    
     workload:
       main:
         podSpec:
@@ -68,6 +70,7 @@ spec:
                 LLDAP_SMTP_OPTIONS__USER: ${SMTP_USER}
                 LLDAP_VERBOSE: false
                 LLDAP_key_file: /data/private_key
+    
     cnpg:
       main:
         cluster:
