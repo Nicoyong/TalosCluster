@@ -56,14 +56,15 @@ spec:
             protocol: udp
 
     ingress:
-      enabled: true
-      ingressClassName: internal
-      hosts:
-        - host: cs-homepage.${DOMAIN_0}
-      integrations:
-        certManager:
-          enabled: true
-          certificateIssuer:  domain-0-le-prod
+      main:
+        enabled: true
+        ingressClassName: internal
+        hosts:
+          - host: qbittorrent.${DOMAIN_0}
+        integrations:
+          certManager:
+            enabled: true
+            certificateIssuer: domain-0-le-prod
     
     persistence:
       config:
