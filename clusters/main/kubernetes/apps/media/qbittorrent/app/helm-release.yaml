@@ -40,12 +40,6 @@ spec:
         accessKey: "${S3_ACCESKEY}"
         secretKey: "${S3_SECRETKEY}"
         encrKey: "${S3_ENCRKEY}" 
-        
-    service:
-#      main:
-#        enabled: true
-#        type: LoadBalancer
-#        loadBalancerIP: ${QBITTORRENT_IP}
   
       torrent:
         enabled: true
@@ -62,15 +56,14 @@ spec:
             protocol: udp
 
     ingress:
-      main:
-        enabled: true
-        ingressClassName: internal
-        hosts:
-          - host: qbittorrent.${DOMAIN_1}
-#        integrations:
-#          certManager:
-#            enabled: true
-#            certificateIssuer: selfsigned   
+      enabled: true
+      ingressClassName: internal
+      hosts:
+        - host: cs-homepage.${DOMAIN_0}
+      integrations:
+        certManager:
+          enabled: true
+          certificateIssuer:  domain-0-le-prod
     
     persistence:
       config:
