@@ -63,7 +63,7 @@ spec:
             src: #VolSync Source (Backup)
               enabled: true   
 
-      addons:
+    addons:
       codeserver:
         enabled: true
         ingress:
