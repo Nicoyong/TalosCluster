@@ -65,7 +65,12 @@ spec:
             name: "jellyfin"
             description: "jellyfin Server"
             group: "Media"
-            weight: 1      
+            weight: 1
+            widget:
+              enabled: true
+              type: jellyfin
+              custom:
+                key: "${JELLYFIN_API_KEY}" 
        
     persistence:
       config:
