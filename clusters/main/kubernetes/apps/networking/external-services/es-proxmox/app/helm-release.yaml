@@ -66,11 +66,11 @@ spec:
 #              internalHost: "authelia.authelia.svc.cluster.local:9091"
 #              externalHost: "auth.${DOMAIN_0}"
         
-#          homepage:
-#            enabled: true
-#            name: "proxmox"
-#            description: "proxmox"
-#            group: "Administration"
-#            weight: 1
-#            widget:
-#              enabled: true
+          homepage:
+            enabled: true
+            name: "proxmox"
+            description: "proxmox"
+            group: "Administration"
+            weight: 1
+            widget:
+              enabled: true
