@@ -45,6 +45,9 @@ spec:
         enabled: true
         ingressClassName: internal
 
+        annotations:
+          nginx.ingress.kubernetes.io/backend-protocol: "HTTPS"
+
         hosts:
           - host: proxmox.${DOMAIN_0}
             paths:
