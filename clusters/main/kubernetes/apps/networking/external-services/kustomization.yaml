@@ -1,9 +1,10 @@
 apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
 resources:
-  - namespace.yaml
-  - es-homeassistant/ks.yaml
-  - es-prusa/ks.yaml  
   - es-ai/ks.yaml
-  - es-ollama/ks.yaml 
   - es-carottage/ks.yaml
+  - es-homeassistant/ks.yaml
+  - es-ollama/ks.yaml  
+  - es-proxmox
+  - es-prusa/ks.yaml  
+  - namespace.yaml
