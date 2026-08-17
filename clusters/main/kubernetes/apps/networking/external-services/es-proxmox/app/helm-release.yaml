@@ -31,12 +31,13 @@ spec:
       main:
         enabled: true
         externalIP: ${PROXMOX_IP}
+        
         useSlice: false
         ports:
           main:
             enabled: true
             port: ${PROXMOX_PORT}
-            protocol: http
+            protocol: https
         type: ExternalIP
 
     ingress:
@@ -46,7 +47,10 @@ spec:
 
         hosts:
           - host: proxmox.${DOMAIN_0}
-        
+            paths:
+            - path: /
+              pathType: Prefix
+
         integrations:
           certManager:
             enabled: true
