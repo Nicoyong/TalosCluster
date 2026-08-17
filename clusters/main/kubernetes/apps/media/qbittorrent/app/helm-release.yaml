@@ -65,6 +65,14 @@ spec:
           certManager:
             enabled: true
             certificateIssuer: domain-0-le-prod
+          homepage:
+            enabled: true
+            name: "qbittorrent"
+            description: "BitTorrent Client"
+            group: "Media"
+            weight: 1
+            widget:
+              enabled: true
     
     persistence:
       config:
