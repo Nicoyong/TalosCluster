@@ -1,0 +1,68 @@
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: es-proxmox
+  namespace: external-services
+spec:
+  interval: 15m
+  chart:
+    spec:
+      chart: external-service
+      version: 17.8.0
+      sourceRef:
+        kind: HelmRepository
+        name: truecharts
+        namespace: flux-system
+      interval: 15m
+  timeout: 20m
+  maxHistory: 3
+  install:
+    remediation:
+      retries: 3
+  upgrade:
+    cleanupOnFail: true
+    remediation:
+      retries: 3
+  uninstall:
+    keepHistory: false
+  values:
+    service:
+      main:
+        enabled: true
+        externalIP: ${PROXMOX_IP}
+        useSlice: false
+        ports:
+          main:
+            enabled: true
+            port: ${PROXMOX_PORT}
+            protocol: http
+        type: ExternalIP
+
+    ingress:
+      main:
+        enabled: true
+        ingressClassName: internal
+
+        hosts:
+          - host: proxmox.${DOMAIN_0}
+        
+        integrations:
+          certManager:
+            enabled: true
+            certificateIssuer: domain-0-le-prod
+          
+          nginx:
+            enabled: true
+            auth:
+              type: "authelia"
+              internalHost: "authelia.authelia.svc.cluster.local:9091"
+              externalHost: "auth.${DOMAIN_0}"
+        
+          homepage:
+            enabled: true
+            name: "proxmox"
+            description: "proxmox"
+            group: "Administration"
+            weight: 1
+            widget:
+              enabled: true
