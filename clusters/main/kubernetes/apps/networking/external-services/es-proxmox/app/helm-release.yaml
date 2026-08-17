@@ -25,6 +25,7 @@ spec:
       retries: 3
   uninstall:
     keepHistory: false
+  
   values:
     service:
       main:
@@ -35,7 +36,7 @@ spec:
           main:
             enabled: true
             port: ${PROXMOX_PORT}
-            protocol: http
+            protocol: https
         type: ExternalIP
 
     ingress:
