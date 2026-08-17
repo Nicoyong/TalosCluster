@@ -36,7 +36,7 @@ spec:
           main:
             enabled: true
             port: ${PROXMOX_PORT}
-            protocol: https
+            protocol: http
         type: ExternalIP
 
     ingress:
