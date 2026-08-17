@@ -45,7 +45,7 @@ spec:
       minio:
         type: s3
         url: "${S3_URL}"
-        bucket: "taloscluster"
+        bucket: "${S3_BUCKET}"
         accessKey: "${S3_ACCESKEY}"
         secretKey: "${S3_SECRETKEY}"
         encrKey: "${S3_ENCRKEY}"    
@@ -55,14 +55,17 @@ spec:
         enabled: true
         ingressClassName: external 
         integrations:
+          hosts:
+            - host: jellyfin.${DOMAIN_0}
           certManager:
             enabled: true
             certificateIssuer: domain-0-le-prod 
-        hosts:
-          - host: jellyfin.${DOMAIN_0}
-            paths:
-              - path: /
-                pathType: Prefix        
+          homepage:
+            enabled: true
+            name: "jellyfin"
+            description: "jellyfin Server"
+            group: "Media"
+            weight: 1      
        
     persistence:
       config:
