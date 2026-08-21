@@ -95,9 +95,10 @@ spec:
             main:
               env:
                 HOMEPAGE_ALLOWED_HOSTS: "homepage.${DOMAIN_0}"
-                PVE_URL: "https://${PROXMOX_IP}:${PROXMOX_PORT}"
-                PVE_TOKEN: "${PVE_TOKEN}"
-                PVE_SECRET: "${PVE_SECRET}"
+                
+                HOMEPAGE_VAR_PVE_URL: "https://${PROXMOX_IP}:${PROXMOX_PORT}"
+                HOMEPAGE_VAR_PVE_TOKEN: "${PVE_TOKEN}"
+                HOMEPAGE_VAR_PVE_SECRET: "${PVE_SECRET}"
     
     resources:
       requests:
