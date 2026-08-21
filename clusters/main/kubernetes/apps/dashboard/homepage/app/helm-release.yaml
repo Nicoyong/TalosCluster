@@ -32,6 +32,11 @@ spec:
   values:
     TZ: Europe/Paris  
 
+    pve:
+      url: "${PVE_URL}"
+      token: "${PVE_TOKEN}"
+      secret: "${PVE_SECRET}"
+
     credentials:
       minio:
         type: s3
