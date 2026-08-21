@@ -32,11 +32,6 @@ spec:
   values:
     TZ: Europe/Paris  
 
-    pve:
-      url: "${PVE_URL}"
-      token: "${PVE_TOKEN}"
-      secret: "${PVE_SECRET}"
-
     credentials:
       minio:
         type: s3
@@ -100,6 +95,9 @@ spec:
             main:
               env:
                 HOMEPAGE_ALLOWED_HOSTS: "homepage.${DOMAIN_0}"
+                PVE_URL: "https://${PROXMOX_IP}:${PROXMOX_PORT}"
+                PVE_TOKEN: "${PVE_TOKEN}"
+                PVE_SECRET: "${PVE_SECRET}"
     
     resources:
       requests:
