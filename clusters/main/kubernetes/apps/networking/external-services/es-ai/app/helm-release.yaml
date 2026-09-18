@@ -29,12 +29,12 @@ spec:
     service:
       main:
         enabled: true
-        externalIP: ${AI_IP}
+        externalIP: ${PORTAINER_IP}
         useSlice: false
         ports:
           main:
             enabled: true
-            port: ${AI_PORT}
+            port: ${PORTAINER_AI_PORT}
             protocol: http
         type: ExternalIP
     ingress:
