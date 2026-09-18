@@ -4,6 +4,7 @@ resources:
   - es-ai/ks.yaml
   - es-carottage/ks.yaml
   - es-homeassistant/ks.yaml
+  - es-matilab-terminal/ks.yaml
   - es-ollama/ks.yaml  
   - es-proxmox/ks.yaml 
   - es-prusa/ks.yaml  
