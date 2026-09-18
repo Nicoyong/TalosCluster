@@ -112,14 +112,26 @@ spec:
       access_control:
         default_policy: 'deny'
         rules:
+          #----------------------------------------------
           # Réseau LOCAL - bypass MAIS juste pour admin
+          #----------------------------------------------
           - domain:
               - "*.${DOMAIN_0}"
               - ${DOMAIN_0}
             networks:
               - ${PLAGE_IP}
             policy: bypass        
-           # Réseau EXTERNE - authentification requise
+          #----------------------------------------------
+          # Réseau EXTERNE - authentification requise
+          #----------------------------------------------
+           # utilisateur bio 
+          - domain:
+            - "matilab.${DOMAIN_0}"
+            policy: two_factor
+            subject:
+            - "group:admin"
+            - "group:bio"
+           # utilisateur admin
           - domain:
               - "*.${DOMAIN_0}"
               - ${DOMAIN_0}
