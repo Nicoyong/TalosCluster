@@ -29,7 +29,7 @@ spec:
     service:
       main:
         enabled: true
-        externalIP: ${PORTAINER_PI}
+        externalIP: ${PORTAINER_IP}
         useSlice: false
         ports:
           main:
