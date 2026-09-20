@@ -127,6 +127,7 @@ spec:
            # utilisateur bio 
           - domain:
             - "matilab.${DOMAIN_0}"
+            - "auth.${DOMAIN_0}"
             policy: two_factor
             subject:
             - "group:admin"
