@@ -92,7 +92,7 @@ spec:
         enabled: true
         type: nfs
         server: ${TRUENAS_IP}
-        path: ${FILEBROWSER_MEDIA_PATH}
+        path: ${JELLYFIN_NFS_PATH}
         mountPath: /data/Media
 
       downloads:
