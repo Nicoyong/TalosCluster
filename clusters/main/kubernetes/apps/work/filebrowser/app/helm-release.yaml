@@ -71,6 +71,15 @@ spec:
             enabled: true
             certificateIssuer: domain-0-le-prod
 
+          homepage:
+            enabled: true
+            name: "FileBrowser"
+            description: "Gestion des fichiers"
+            group: "Work"
+            weight: 3
+            widget:
+              enabled: false  
+
     persistence:
 
       config:
