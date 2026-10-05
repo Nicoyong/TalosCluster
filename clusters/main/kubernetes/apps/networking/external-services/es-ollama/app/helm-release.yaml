@@ -41,6 +41,11 @@ spec:
       main:
         enabled: true
         ingressClassName: external
+        annotations:
+          nginx.ingress.kubernetes.io/proxy-read-timeout: "1200"
+          nginx.ingress.kubernetes.io/proxy-send-timeout: "1200"
+          nginx.ingress.kubernetes.io/proxy-buffering: "off"
+          nginx.ingress.kubernetes.io/proxy-body-size: "200m"
         integrations:
           certManager:
             enabled: true
