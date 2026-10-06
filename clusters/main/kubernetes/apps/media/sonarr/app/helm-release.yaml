@@ -63,6 +63,13 @@ spec:
             weight: 2
             widget:
               enabled: true
+    workload:
+      main:
+        podSpec:
+          containers:
+            main:
+              env:
+                SONARR__AUTH__METHOD: External
           
     persistence:
       config:
