@@ -53,6 +53,8 @@ spec:
           certManager:
             enabled: true
             certificateIssuer: domain-0-le-prod
+          hosts:
+            - host: sonarr.${DOMAIN_0}
           homepage:
             enabled: true
             name: "sonarr"
@@ -61,8 +63,7 @@ spec:
             weight: 2
             widget:
               enabled: true
-          hosts:
-          - host: sonarr.${DOMAIN_0}
+          
     persistence:
       config:
         volsync:
