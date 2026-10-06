@@ -43,6 +43,8 @@ spec:
       main:
         enabled: true
         ingressClassName: internal
+        hosts:
+          - host: sonarr.${DOMAIN_1}
         integrations:
           nginx:
             enabled: true
@@ -53,8 +55,6 @@ spec:
           certManager:
             enabled: true
             certificateIssuer: domain-0-le-prod
-          hosts:
-            - host: sonarr.${DOMAIN_0}
           homepage:
             enabled: true
             name: "sonarr"
