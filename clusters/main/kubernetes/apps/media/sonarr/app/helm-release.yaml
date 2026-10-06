@@ -84,5 +84,5 @@ spec:
         enabled: true
         type: nfs
         server: ${TRUENAS_IP}
-        path: ${JELLYFIN_NFS_PATH}/Vidéo/Séries/TV
+        path: ${JELLYFIN_NFS_PATH}
         mountPath: /media                      
