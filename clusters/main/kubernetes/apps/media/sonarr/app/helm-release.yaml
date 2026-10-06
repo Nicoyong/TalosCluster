@@ -44,7 +44,7 @@ spec:
         enabled: true
         ingressClassName: internal
         hosts:
-          - host: sonarr.${DOMAIN_1}
+          - host: sonarr.${DOMAIN_0}
         integrations:
           nginx:
             enabled: true
