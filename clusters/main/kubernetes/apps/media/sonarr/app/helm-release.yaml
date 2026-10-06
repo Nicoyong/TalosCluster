@@ -62,7 +62,7 @@ spec:
             group: "Media"
             weight: 2
             widget:
-              enabled: true
+              enabled: false
     workload:
       main:
         podSpec:
