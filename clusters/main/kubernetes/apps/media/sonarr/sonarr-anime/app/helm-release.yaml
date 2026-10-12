@@ -70,6 +70,7 @@ spec:
             main:
               env:
                 SONARR__AUTH__METHOD: External
+                SONARR__APP__INSTANCENAME: "Sonarr Anime"
           
     persistence:
       config:
