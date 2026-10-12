@@ -60,7 +60,7 @@ spec:
             name: "prowlarr"
             description: "prowlarr"
             group: "Media"
-            weight: 3
+            weight: 2
             widget:
               enabled: false
     persistence:

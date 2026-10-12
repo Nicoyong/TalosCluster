@@ -60,7 +60,7 @@ spec:
             name: "sonarr"
             description: "Sonarr Client"
             group: "Media"
-            weight: 2
+            weight: 3
             widget:
               enabled: false
     workload:
