@@ -84,13 +84,16 @@ spec:
         cluster:
           singleNode: true
         mode: standalone #recovery pour restore
+        
         backups:
           enabled: true
           credentials: minio
           retentionPolicy: "14d"
           revision: "3"
+        
         recovery:
-          enabled: false
+          credentials: minio
+        
         monitoring:
           enablePodMonitor: true
 
