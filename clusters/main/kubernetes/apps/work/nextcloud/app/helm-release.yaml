@@ -57,7 +57,7 @@ spec:
       main:
         cluster:
           singleNode: true
-        mode: recovery #standalone
+        mode: standalone #recovery #standalone
         backups:
           enabled: true
           credentials: minio
