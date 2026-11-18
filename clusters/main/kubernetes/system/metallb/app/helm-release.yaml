@@ -25,3 +25,17 @@ spec:
   values:
     speaker:
       ignoreExcludeLB: true
+
+  postRenderers:
+    - kustomize:
+        patches:
+          - target:
+              group: apps
+              version: v1
+              kind: Deployment
+              name: metallb-frr-k8s-statuscleaner
+            patch: |-
+              - op: add
+                path: /spec/strategy
+                value:
+                  type: Recreate
