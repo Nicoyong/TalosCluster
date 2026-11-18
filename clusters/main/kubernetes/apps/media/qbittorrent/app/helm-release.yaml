@@ -41,6 +41,7 @@ spec:
         secretKey: "${S3_SECRETKEY}"
         encrKey: "${S3_ENCRKEY}" 
   
+    service:
       torrent:
         enabled: true
         type: LoadBalancer
