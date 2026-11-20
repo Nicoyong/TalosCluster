@@ -8,9 +8,11 @@ resources:
   - cilium.yaml
   - cloudnative-pg.yaml
   - home-ops-mirror.yaml
+  - ingress-nginx.yaml
   - jetstack.yaml
   - kustomization.yaml
   - metallb.yaml
+  - node-feature-discovery.yaml
   - prometheus-community.yaml
   - spegel.yaml
   - truecharts.yaml
