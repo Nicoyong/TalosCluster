@@ -1,0 +1,32 @@
+{
+  "$schema": "https://docs.renovatebot.com/renovate-schema.json",
+
+  "flux": {
+    "managerFilePatterns": ["/\\.yaml(?:\\.j2)?$/"],
+    "branchPrefix": "renovate/flux-",
+
+    "registryAliases": {
+      "bjw-s": "oci://ghcr.io/bjw-s-labs/helm",
+      "cilium": "oci://quay.io/cilium/charts",
+      "cloudnative-pg": "oci://ghcr.io/cloudnative-pg/charts",
+      "home-ops-mirror": "oci://ghcr.io/home-operations/charts-mirror",
+      "ingress-nginx": "https://kubernetes.github.io/ingress-nginx",
+      "jetstack": "oci://quay.io/jetstack/charts",
+      "metallb": "oci://quay.io/metallb/chart",
+      "node-feature-discovery": "oci://registry.k8s.io/nfd/charts",
+      "openebs": "oci://ghcr.io/openebs/charts",
+      "prometheus-community": "oci://ghcr.io/prometheus-community/charts",
+      "spegel": "oci://ghcr.io/spegel-org/helm-charts",
+      "truecharts": "oci://oci.trueforge.org/truecharts"
+    }
+  },
+
+  "kubernetes": {
+    "managerFilePatterns": ["/\\.yaml(?:\\.j2)?$/"],
+    "branchPrefix": "renovate/kubernetes-"
+  },
+
+  "github-actions": {
+    "branchPrefix": "renovate/githubactions-"
+  }
+}
