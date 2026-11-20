@@ -22,7 +22,7 @@
 
     // Configuration personnalisée du projet TrueCharts
     // Elle ajoute des règles spécifiques à Kubernetes / Helm / TrueCharts
-    "github>truecharts/public//.github/renovate/main.json5",
+    //"github>truecharts/public//.github/renovate/main.json5",
 
     // Règles spécifiques Talos :
     "github>Nicoyong/TalosCluster//.github/renovate/special_talos.json5",
