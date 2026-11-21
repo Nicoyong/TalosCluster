@@ -39,6 +39,19 @@
   //"github>Nicoyong/TalosCluster//.github/renovate/special_stopdigistpinning.json5"
   ],
 
+  // Automerge PATCH uniquement pour les applications déployées dans apps/
+  // Les composants d’infrastructure (Talos, Kubernetes, kube-system, system,
+  // core et Longhorn) restent soumis à une validation manuelle.
+  "packageRules": [
+    {
+      "description": "Automerge des mises à jour PATCH des applications uniquement",
+      "matchFileNames": ["clusters/main/kubernetes/apps/**"],
+      "matchUpdateTypes": ["patch"],
+      "automerge": true,
+      "automergeType": "pr"
+    }
+  ],
+
   // Active le "Renovate Dashboard"
   // → Une issue GitHub qui liste toutes les dépendances
   //   et leur statut (à jour, en attente, bloquées, rate-limited, etc.)  
