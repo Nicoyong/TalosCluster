@@ -75,6 +75,6 @@ spec:
       datasource:
         enabled: false
 
-    cnpg:
-      main:
-        enabled: false
+    dependencies:
+     postgresql:
+       enabled: false
