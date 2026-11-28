@@ -10,7 +10,7 @@ spec:
   chart:
     spec:
       chart: joplin-server
-      version: 23.1.6
+      version: 24.0.0
       sourceRef:
         kind: HelmRepository
         name: truecharts
